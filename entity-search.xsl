@@ -9,7 +9,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:for-each select="entitiesSearch-results/entity">
 
         <p>
-          <b>- <xsl:value-of select="@entity-name"/></b>
+          <b>
+            <xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
         </p>
 
         <xsl:apply-templates select="discogs-search"/>
