@@ -35,13 +35,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="doc">
   <table>
-    <xsl:for-each select="str">
-      <tr>
-        <th><xsl:value-of select="@name"/></th>
-        <td><xsl:value-of select="."/></td>
-      </tr>
+    <xsl:for-each select="*">
+      <xsl:choose>
+        <xsl:when test="name(.) = 'str'"> <!-- 'str' node -->
+          <tr>
+            <th><xsl:value-of select="@name"/></th>
+            <td><xsl:value-of select="."/></td>
+          </tr>
+        </xsl:when>
+        <xsl:otherwise> <!-- 'arr' node -->
+          <xsl:apply-templates select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
-    <xsl:apply-templates select="arr"/>
   </table>
 </xsl:template>
 
@@ -64,6 +70,29 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:value-of select="@total-matches"/>
     )
   </p>
+
+  <xsl:for-each select="result">
+    <table>
+      <xsl:for-each select="*">
+        <tr>
+          <xsl:choose>
+            <xsl:when test="name(.) = 'url'"> <!-- 'url' node -->
+              <th> Url </th>
+              <td> <xsl:value-of select="."/> </td>
+            </xsl:when>
+            <xsl:when test="name(.) = 'title'"> <!-- 'title' node -->
+              <th> Title </th>
+              <td> <xsl:value-of select="."/> </td>
+            </xsl:when>
+            <xsl:when test="name(.) = 'abstract'"> <!-- 'abstract' node -->
+              <th> Abstract </th>
+              <td> <xsl:value-of select="."/> </td>
+            </xsl:when>
+          </xsl:choose>
+        </tr>
+      </xsl:for-each>
+    </table>
+  </xsl:for-each>
 </xsl:template>
 
  
