@@ -4,18 +4,36 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
   <html>
+    <head>
+      <script src="jquery-1.9.0.min.js">
+      </script>
+      <script type="text/javascript">
+        function toggleElement(element)
+        {
+          $(element).next().slideToggle();
+        }
+        function expandAll()
+        {
+          $("body").children("div").slideDown();
+        }
+        function collapseAll()
+        {
+          $("body").children("div").slideUp();
+        }
+      </script>
+    </head>
     <body>
       <h1>Entity Search Result</h1>
+      <button type="button" onclick="expandAll()">Expand All !</button>
+      <button type="button" onclick="collapseAll()">Collapse All !</button>
       <xsl:for-each select="entitiesSearch-results/entity">
-
-        <p>
-          <b>
-            <xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
+        <p onclick="toggleElement(this)">
+          <b><xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
         </p>
-
-        <xsl:apply-templates select="discogs-search"/>
-        <xsl:apply-templates select="yahoo-Search"/>
-
+        <div>
+          <xsl:apply-templates select="discogs-search"/>
+          <xsl:apply-templates select="yahoo-Search"/>
+        </div>
       </xsl:for-each>
     </body>
   </html>
@@ -29,9 +47,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:value-of select="@informative-matches"/>
     )            
   </p>
-
   <xsl:apply-templates select="doc"/>
-
 </xsl:template>
 
 <xsl:template match="doc">
