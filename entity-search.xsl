@@ -83,9 +83,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <th><xsl:value-of select="@name"/></th>
     <td>
       <xsl:for-each select="str">
-      <p>
-        <xsl:value-of select="."/>
-      </p>
+        <a class="urls" href=""><xsl:value-of select="."/></a>
+        <br/>
       </xsl:for-each>
     </td>
   </tr>
@@ -105,7 +104,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           <xsl:choose>
             <xsl:when test="name(.) = 'url'"> <!-- 'url' node -->
               <th> Url </th>
-              <td> <xsl:value-of select="."/> </td>
+              <td> <a class="urls" href=""><xsl:value-of select="."/></a> </td>
             </xsl:when>
             <xsl:when test="name(.) = 'title'"> <!-- 'title' node -->
               <th> Title </th>
