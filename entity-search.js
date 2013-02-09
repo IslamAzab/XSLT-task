@@ -5,15 +5,21 @@ $(function setURLs () {
   })
 });
 
+// Adding padding to body to avoid being covered by the nav-bar
+$(function setBodyPadding () {
+  var padding = 10 + $("#top-bar").height();
+  $("body").css('padding',padding)
+});
+
 function toggleElement(element)
 {
-  $(element).next().next().slideToggle();
+  $(element).parent().next().slideToggle();
 }
 function expandAll()
 {
-  $("div.results").slideDown();
+  $(".row-fluid.results").slideDown();
 }
 function collapseAll()
 {
-  $("div.results").slideUp();
+  $(".row-fluid.results").slideUp();
 }

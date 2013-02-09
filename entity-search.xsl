@@ -11,9 +11,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <script src="entity-search.js"></script>
     </head>
     <body>
-      <div class="navbar" >
+      <div id="top-bar" class="navbar navbar-fixed-top">
         <div class="navbar-inner">
           <h1 >Entity Search Result</h1>
+          <div class="actions">
+            <div class="btn-group pull-right" >
+              <button class="btn" type="button" onclick="expandAll()">Expand All <i class="icon-chevron-down"></i></button>
+              <button class="btn" type="button" onclick="collapseAll()">Collapse All <i class="icon-chevron-up"></i></button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -21,24 +27,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <div class="row-fluid">
           <div class="span1">
             <!--Sidebar content-->
-            Some actions
+            Sidebar content
           </div>
           <div class="span11">
             <!--Body content-->
-            <div class="actions">
-              <div class="btn-group" >
-                <button class="btn btn-primary" type="button" onclick="expandAll()">Expand All !</button>
-                <button class="btn btn-primary" type="button" onclick="collapseAll()">Collapse All !</button>
-              </div>
-            </div>
+            
             <xsl:for-each select="entitiesSearch-results/entity">
-              <a onclick="toggleElement(this)">
-                <b><xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
-              </a>
-              <br/>
-              <div id='day-from-date(xs:date("2005-04-23"))' class="results">
-                <xsl:apply-templates select="discogs-search"/>
-                <xsl:apply-templates select="yahoo-Search"/>
+              <div>
+                <a onclick="toggleElement(this)">
+                  <b><xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
+                </a>
+              </div>
+              <div class="row-fluid results">
+                <div class="span10 offset1">
+                  <xsl:apply-templates select="discogs-search"/>
+                  <xsl:apply-templates select="yahoo-Search"/>
+                </div>
               </div>
             </xsl:for-each>
           </div>
