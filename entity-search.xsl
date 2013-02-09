@@ -5,36 +5,45 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
   <html>
     <head>
-      <script src="jquery-1.9.0.min.js">
-      </script>
-      <script type="text/javascript">
-        function toggleElement(element)
-        {
-          $(element).next().slideToggle();
-        }
-        function expandAll()
-        {
-          $("body").children("div").slideDown();
-        }
-        function collapseAll()
-        {
-          $("body").children("div").slideUp();
-        }
-      </script>
+      <script src="jquery-1.9.0.min.js"></script>
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.css"></link>
+      <script src="bootstrap/js/bootstrap.js" type="text/javascript"></script>
+      <script src="entity-search.js"></script>
     </head>
     <body>
-      <h1>Entity Search Result</h1>
-      <button type="button" onclick="expandAll()">Expand All !</button>
-      <button type="button" onclick="collapseAll()">Collapse All !</button>
-      <xsl:for-each select="entitiesSearch-results/entity">
-        <p onclick="toggleElement(this)">
-          <b><xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
-        </p>
-        <div>
-          <xsl:apply-templates select="discogs-search"/>
-          <xsl:apply-templates select="yahoo-Search"/>
+      <div class="navbar" >
+        <div class="navbar-inner">
+          <h1 >Entity Search Result</h1>
         </div>
-      </xsl:for-each>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span1">
+            <!--Sidebar content-->
+            Some actions
+          </div>
+          <div class="span11">
+            <!--Body content-->
+            <div class="actions">
+              <div class="btn-group" >
+                <button class="btn btn-primary" type="button" onclick="expandAll()">Expand All !</button>
+                <button class="btn btn-primary" type="button" onclick="collapseAll()">Collapse All !</button>
+              </div>
+            </div>
+            <xsl:for-each select="entitiesSearch-results/entity">
+              <a onclick="toggleElement(this)">
+                <b><xsl:value-of select="position()"/> - <xsl:value-of select="@entity-name"/></b>
+              </a>
+              <br/>
+              <div id='day-from-date(xs:date("2005-04-23"))' class="results">
+                <xsl:apply-templates select="discogs-search"/>
+                <xsl:apply-templates select="yahoo-Search"/>
+              </div>
+            </xsl:for-each>
+          </div>
+        </div>
+      </div>
     </body>
   </html>
 </xsl:template>
@@ -68,6 +77,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   </table>
 </xsl:template>
 
+<!-- Array node, array of URLs -->
 <xsl:template match="arr">
   <tr>
     <th><xsl:value-of select="@name"/></th>
